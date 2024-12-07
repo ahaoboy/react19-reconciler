@@ -1,5 +1,5 @@
 {
-  "name": "react-render",
+  "name": "react19-reconciler",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,21 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-reconciler": "^0.29.2"
+    "react": "19.0.0",
+    "react-reconciler": "0.31.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
     "@types/react-reconciler": "^0.28.8",
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
-    "typescript": "~5.6.2",
+    "typescript": "5.7.2",
     "typescript-eslint": "^8.11.0",
-    "vite": "^5.4.10"
+    "vite": "6.0.3"
   }
 }

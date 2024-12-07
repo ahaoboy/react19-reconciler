@@ -1,7 +1,31 @@
 // @ts-nocheck
 import Reconciler from "react-reconciler"
+import {
+  DiscreteEventPriority,
+  ContinuousEventPriority,
+  DefaultEventPriority,
+} from 'react-reconciler/constants';
 
 const hostConfig = {
+  resolveUpdatePriority: (...args) => {
+    console.log('resolveUpdatePriority', args)
+    return DefaultEventPriority;
+  },
+  getCurrentUpdatePriority(...args) {
+    console.log('getCurrentUpdatePriority', args)
+    return DefaultEventPriority;
+  },
+  setCurrentUpdatePriority(...args) {
+    console.log('setCurrentUpdatePriority', args)
+    return DefaultEventPriority
+  },
+  maySuspendCommit() {
+    return false
+  },
+  supportsMutation: function (...args) {
+    console.log("createInstance", ...args);
+    return true;
+  },
   getRootHostContext: function (nextRootInstance) {
     console.log("getRootHostContext", nextRootInstance);
     let rootContext = {
@@ -72,8 +96,6 @@ const hostConfig = {
     const element = document.createElement(type);
     element.className = props.className || "";
     element.style = props.style;
-    // ....
-    // ....
     if (props.onClick) {
       element.addEventListener("click", props.onClick);
     }
@@ -98,18 +120,18 @@ const hostConfig = {
     parentInstance.insertBefore(child, beforeChild);
     console.log("insertBefore", parentInstance, child, beforeChild);
   },
-  insertInContainerBefore: function(container, child, beforeChild) {
+  insertInContainerBefore: function (container, child, beforeChild) {
     container.insertBefore(child, beforeChild);
     console.log("insertInContainerBefore", container, child, beforeChild);
   },
-  removeChildFromContainer: function(container, child) {
+  removeChildFromContainer: function (container, child) {
     container.removeChild(child);
     console.log("removeChildFromContainer", container, child);
   },
-  resetTextContent: function(domElement) {
+  resetTextContent: function (domElement) {
     console.log("resetTextContent", domElement);
   },
-  shouldDeprioritizeSubtree: function(type, nextProps) {
+  shouldDeprioritizeSubtree: function (type, nextProps) {
     console.log("shouldDeprioritizeSubtree", type, nextProps);
     return !!nextProps.hidden
   },
@@ -191,6 +213,9 @@ const CustomRenderer = {
     const parentContainer = null;
     // create root container
     const container = reconcilerInstance.createContainer(renderDom, isAsync);
+    // container.onUncaughtError = (...args)=>{
+    //   console.log("renderDom",args)
+    // }
     reconcilerInstance.updateContainer(
       element,
       container,
